@@ -12,9 +12,9 @@
             <!-- 配置数据库连接信息 -->
             <dataSource type="POOLED">
                 <property name="driver" value="${jdbc_driver}" />
-                <property name="url" value="jdbc:mysql://localhost:3306/db02?useUnicode=true&amp;characterEncoding=UTF-8" />
-                <property name="username" value="root" />
-                <property name="password" value="1234" />
+                <property name="url" value="${jdbc_url}" />
+                <property name="username" value="${jdbc_userName}" />
+                <property name="password" value="${jdbc_userPwd}" />
             </dataSource>
         </environment>
     </environments>
