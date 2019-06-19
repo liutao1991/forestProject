@@ -8,6 +8,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * 建立连接
+ */
 public class GetSession {
     private static SqlSessionFactory sqlSessionFactory ;
     private static InputStream in;
