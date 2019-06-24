@@ -82,14 +82,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <div class="layui-row layui-col-space15">
         <!--添加按钮开始-->
-        <div class="layui-col-md6" >
+        <div class="layui-col-md6 layui-col-xs6" >
             <div class="layui-card">
                 <div class="layui-card-body">
                     <div class="layui-btn-container">
                         <button class="layui-btn layui-btn-primary" style="margin-right: 150px;margin-bottom: 70px">
                             查看小班信息
                         </button>
-                        <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px">添加小班</button>
+                        <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px" id="bid1">添加小班</button>
                         <p></p>
                         <button class="layui-btn layui-btn-primary">修改小班信息</button>
                         <!--<button class="layui-btn">添加小班</button>-->
@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <!--添加按钮结束-->
 
-        <div class="layui-col-md6">
+        <div class="layui-col-md6 layui-col-xs6">
             <div class="layui-card">
                 <div class="layui-card-header">查询小班信息</div>
                 <form class="layui-card-body">
@@ -153,6 +153,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             elem: 'test-laypage-demo0'
             , count: 50 //数据总数
         });
+    });
+    $("#bid1").click(function () {
+        location.href="jsp/addClass.jsp";
     });
 </script>
 
