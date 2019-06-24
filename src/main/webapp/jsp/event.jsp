@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-String path = request.getContextPath();
+    String path = request.getContextPath();
 //http://ip+port+projectName
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <html>
 <head>
@@ -25,12 +25,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <a><cite>静态表格</cite></a>
     </div>
 </div>
-<div class="layui-fluid">-
+<div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
 
             <div class="layui-card">
-                <div align="center" style="font-size: 40px" class="layui-card-header">小班管理</div>
+                <div align="center" style="font-size: 40px" class="layui-card-header">事件记录</div>
                 <!--表格开始-->
                 <div class="layui-card-body">
                     <table class="layui-table">
@@ -86,12 +86,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="layui-card">
                 <div class="layui-card-body">
                     <div class="layui-btn-container">
-                        <button class="layui-btn layui-btn-primary" style="margin-right: 150px;margin-bottom: 70px">
-                            查看小班信息
+                        <button id="bid1"  class="layui-btn layui-btn-primary" style="margin-right: 150px;margin-bottom: 70px">
+                            添加事件
                         </button>
-                        <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px" id="bid1">添加小班</button>
+                        <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px" id="bid2">查看事件信息</button>
                         <p></p>
-                        <button class="layui-btn layui-btn-primary">修改小班信息</button>
+                        <button class="layui-btn layui-btn-primary" style="margin-right: 120px">申请专家会审</button>
+                        <button class="layui-btn layui-btn-primary">修改事件信息</button>
                         <!--<button class="layui-btn">添加小班</button>-->
 
                     </div>
@@ -108,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <form class="layui-form" action="" lay-filter="component-form-element">
                         <div class="layui-row layui-col-space10 layui-form-item">
                             <div class="layui-col-lg6">
-                                <label class="layui-form-label">小班姓名：</label>
+                                <label class="layui-form-label">事件名称：</label>
                                 <div class="layui-input-block">
                                     <input type="text" style="width: 100px" name="fullname" lay-verify="required"
                                            placeholder=""
@@ -116,9 +117,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                             </div>
                             <div class="layui-col-lg6">
-                                <label class="layui-form-label">负责区域：</label>
+                                <label class="layui-form-label">灾情状态：</label>
                                 <div class="layui-input-block">
                                     <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                           placeholder=""
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-col-lg6">
+                                <label class="layui-form-label">发生位置：</label>
+                                <div class="layui-input-block">
+                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                           placeholder=""
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-col-lg6">
+                                <label class="layui-form-label">起始日期：</label>
+                                <div class="layui-input-block">
+                                    <input type="date" style="width: 100px" name="fullname" lay-verify="required"
+                                           placeholder=""
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-col-lg6">
+                                <label class="layui-form-label">结束日期：</label>
+                                <div class="layui-input-block">
+                                    <input type="date" style="width: 100px" name="fullname" lay-verify="required"
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
@@ -155,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         });
     });
     $("#bid1").click(function () {
-        location.href="jsp/addClass.jsp";
+        location.href="jsp/addEvent.jsp";
     });
 </script>
 
