@@ -1,19 +1,33 @@
 package com.zhou.forestProject.bean;
 
 
-public class SysEvent {
+import com.zhou.forestProject.bean.SysArea;
+import com.zhou.forestProject.bean.SysType;
 
+public class SysEvent {
+  /**事件id*/
   private long eventId;
-  private long areaId;
+  /**区域对象*/
+  private SysArea sysArea;
+  /**事件名称*/
   private String eventName;
+  /**灾区图片*/
   private String eventImgPath;
+  /**事件发生时间*/
   private String eventDate;
-  private long eventStage;
-  private long eventType;
+  /**灾情阶段，类型对象*/
+  private SysType sysTypeEnevtStage;
+  /**灾害类型，类型对象*/
+  private SysType sysTypeEventType;
+  /**灾情描述*/
   private String eventInfo;
-  private long eventFindWay;
+  /**发现途径，类型对象*/
+  private SysType sysTypeEventFindWay;
+  /**初步损失*/
   private String eventLoss;
+  /**影响面积*/
   private String eventArea;
+  /**防治方案*/
   private String eventMethod;
 
 
@@ -26,14 +40,37 @@ public class SysEvent {
   }
 
 
-  public long getAreaId() {
-    return areaId;
+  public SysArea getSysArea() {
+    return sysArea;
   }
 
-  public void setAreaId(long areaId) {
-    this.areaId = areaId;
+  public void setSysArea(SysArea sysArea) {
+    this.sysArea = sysArea;
   }
 
+  public SysType getSysTypeEnevtStage() {
+    return sysTypeEnevtStage;
+  }
+
+  public void setSysTypeEnevtStage(SysType sysTypeEnevtStage) {
+    this.sysTypeEnevtStage = sysTypeEnevtStage;
+  }
+
+  public SysType getSysTypeEventType() {
+    return sysTypeEventType;
+  }
+
+  public void setSysTypeEventType(SysType sysTypeEventType) {
+    this.sysTypeEventType = sysTypeEventType;
+  }
+
+  public SysType getSysTypeEventFindWay() {
+    return sysTypeEventFindWay;
+  }
+
+  public void setSysTypeEventFindWay(SysType sysTypeEventFindWay) {
+    this.sysTypeEventFindWay = sysTypeEventFindWay;
+  }
 
   public String getEventName() {
     return eventName;
@@ -62,23 +99,6 @@ public class SysEvent {
   }
 
 
-  public long getEventStage() {
-    return eventStage;
-  }
-
-  public void setEventStage(long eventStage) {
-    this.eventStage = eventStage;
-  }
-
-
-  public long getEventType() {
-    return eventType;
-  }
-
-  public void setEventType(long eventType) {
-    this.eventType = eventType;
-  }
-
 
   public String getEventInfo() {
     return eventInfo;
@@ -86,15 +106,6 @@ public class SysEvent {
 
   public void setEventInfo(String eventInfo) {
     this.eventInfo = eventInfo;
-  }
-
-
-  public long getEventFindWay() {
-    return eventFindWay;
-  }
-
-  public void setEventFindWay(long eventFindWay) {
-    this.eventFindWay = eventFindWay;
   }
 
 

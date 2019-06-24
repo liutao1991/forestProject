@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间-->
+<mapper namespace="com.zhou.forestProject.dao.IClassDao">
+    <insert id="addClass" parameterType="sysArea">
+        insert into sys_class(area_id, class_name, class_leader, class_leader_tel, class_num,
+         class_start_date)
+        values (#{area.areaId},#{className},#{classLeader},#{classLeaderTel},#{classNum},#{classStartDate})
+    </insert>
+</mapper>

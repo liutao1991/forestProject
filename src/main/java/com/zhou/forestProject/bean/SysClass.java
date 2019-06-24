@@ -2,13 +2,19 @@ package com.zhou.forestProject.bean;
 
 
 public class SysClass {
-
+  /**小班编号*/
   private long classId;
-  private long areaId;
+  /**区域对象*/
+  private SysArea area;
+  /**小班名称*/
   private String className;
+  /**小班负责人*/
   private String classLeader;
+  /**小班负责人电话*/
   private String classLeaderTel;
+  /**小班人数*/
   private long classNum;
+  /**小班创建时间*/
   private String classStartDate;
 
 
@@ -21,14 +27,13 @@ public class SysClass {
   }
 
 
-  public long getAreaId() {
-    return areaId;
+  public SysArea getArea() {
+    return area;
   }
 
-  public void setAreaId(long areaId) {
-    this.areaId = areaId;
+  public void setArea(SysArea area) {
+    this.area = area;
   }
-
 
   public String getClassName() {
     return className;

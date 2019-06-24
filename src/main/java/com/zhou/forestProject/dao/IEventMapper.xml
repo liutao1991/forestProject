@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间-->
+<mapper namespace="com.zhou.forestProject.dao.IEventDao">
+    <insert id="addEvent" parameterType="sysArea">
+        insert into sys_event(area_id, event_name, event_img_path, event_date, event_stage,
+        event_type, event_info, event_find_way, event_loss, event_area, event_method)
+        values (#{sysArea.areaId},#{eventName},#{eventImgPath},#{eventDate},#{sysTypeEnevtStage.typeId},
+        #{sysTypeEventType.typeId},#{eventInfo},#{sysTypeEventFindWay.typeId},#{eventLoss},#{eventArea},
+        #{eventMethod})
+    </insert>
+</mapper>

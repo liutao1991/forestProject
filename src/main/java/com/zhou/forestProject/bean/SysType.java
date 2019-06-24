@@ -1,6 +1,5 @@
 package com.zhou.forestProject.bean;
 
-
 public class SysType {
 
   private long typeId;
