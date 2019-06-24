@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhou.forestProject.dao.ISysDoctorDao">
+
+    <insert id="addDoctor" parameterType="sysDoctor">
+        insert into sys_doctor(doctor_name, doctor_sex, doctor_birthday, doctor_img_path, doctor_speciality, doctor_post, doctor_tel, doctor_company, doctor_home, doctor_email)
+        values(#{doctorName},#{doctorSex},#{doctorBirthday},#{doctorImgPath},#{doctorSpeciality},#{doctorPost},#{doctorTel},#{doctorCompany},#{doctorHome},#{doctorEmail});
+    </insert>
+
+
+</mapper>
