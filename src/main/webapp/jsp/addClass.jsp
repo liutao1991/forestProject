@@ -61,7 +61,7 @@
                             <div class="layui-input-block"  >
                                 <select  name="city" lay-verify="required"  >
                                     <option value=""></option>
-                                    <option value="0">北京</option>
+                                    <option value="0">464</option>
                                     <option value="1">上海</option>
                                     <option value="2">广州</option>
                                     <option value="3">深圳</option>

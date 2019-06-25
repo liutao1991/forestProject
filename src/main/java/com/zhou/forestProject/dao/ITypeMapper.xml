@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间-->
+<mapper namespace="com.zhou.forestProject.dao.ITypeDao">
+    <select id="findListTypeByTypeName" resultType="sysType">
+        select type_id typeId, type_name typeName, type_key typeKey, type_val  typeVal
+        from sys_type where type_name=#{0}
+    </select>
+    <select id="findIdByVal" resultType="long">
+        select type_id from sys_type where type_val=#{0}
+    </select>
+</mapper>

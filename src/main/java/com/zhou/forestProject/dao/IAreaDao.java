@@ -1,6 +1,7 @@
 package com.zhou.forestProject.dao;
 
 import com.zhou.forestProject.bean.SysArea;
+import com.zhou.forestProject.dto.AreaDto;
 
 import java.util.List;
 import java.util.Map;
@@ -21,5 +22,5 @@ public interface IAreaDao {
      * @param map
      * @return
      */
-    public List<SysArea> findAreaBySome(Map<String,Object> map);
+    public List<AreaDto> findAreaBySome(Map<String,Object> map);
 }

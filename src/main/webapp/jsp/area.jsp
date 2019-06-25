@@ -83,7 +83,7 @@
                 <div class="layui-card-body">
                     <div class="layui-btn-container">
 
-                        <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px" id="bid1">添加区域</button>
+                        <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px" onclick="add()">添加区域</button>
 
                     </div>
                 </div>
@@ -99,6 +99,8 @@
                     <form class="layui-form" action="" lay-filter="component-form-element">
                         <div class="layui-row layui-col-space10 layui-form-item">
                             <div class="layui-col-lg6">
+                                <%--隐藏表单type名字--%>
+                                <input type="hidden"  name="typeName" id="typeName" value="DL123">
                                 <label class="layui-form-label">区域名称：</label>
                                 <div class="layui-input-block">
                                     <input type="text" style="width: 100px" name="fullname" lay-verify="required"
@@ -153,9 +155,17 @@
             , count: 50 //数据总数
         });
     });
-    $("#bid1").click(function () {
+    function add(){
         location.href="jsp/addArea.jsp";
-    });
+        <%--location.href="${basePath}type.lovo";--%>
+
+    }
+
+
+
+
+
+
     $("#firstId").click(function () {
         alert("5466")
     })
