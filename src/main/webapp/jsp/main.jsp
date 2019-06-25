@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               </a>
               <dl class="layui-nav-child">
                 <dd data-name="console" >
-                  <a href="jsp/area.jsp" target="mainName">区域一览</a>
+                  <a href="area.lovo" target="mainName">区域一览</a>
                 </dd>
                 <dd data-name="console" >
                   <a href="jsp/class.jsp" target="mainName">小班管理</a>

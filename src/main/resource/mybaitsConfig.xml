@@ -14,9 +14,15 @@
             <dataSource type="POOLED">
                 <property name="driver" value="${jdbc_driver}" />
                 <property name="url" value="${jdbc_url}" />
-                <property name="username" value="${jdbc_user}" />
-                <property name="password" value="${jdbc_password}" />
+                <property name="username" value="${jdbc_userName}" />
+                <property name="password" value="${jdbc_userPwd}" />
             </dataSource>
         </environment>
     </environments>
+    <mappers>
+        <mapper resource="com/zhou/forestProject/dao/IAreaMapper.xml"></mapper>
+        <mapper resource="com/zhou/forestProject/dao/IClassMapper.xml"></mapper>
+        <mapper resource="com/zhou/forestProject/dao/IEventMapper.xml"></mapper>
+        <mapper resource="com/zhou/forestProject/dao/ITypeMapper.xml"></mapper>
+    </mappers>
 </configuration>

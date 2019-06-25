@@ -1,5 +1,6 @@
 package com.zhou.forestProject.service;
 
+//import com.zhou.forestProject.service.impl.ClassServiceImpl;
 import com.zhou.forestProject.bean.SysArea;
 import com.zhou.forestProject.bean.SysClass;
 import com.zhou.forestProject.service.impl.ClassServiceImpl;
@@ -19,7 +20,7 @@ public class ClassServiceImplTest {
           c.setClassName("雅林一班");
           c.setClassLeaderTel("13533568863");
           c.setClassNum(3);
-       boolean bl=   service.addClass(c);
+          boolean bl=   service.addClass(c);
           System.out.println(bl);
       }
 

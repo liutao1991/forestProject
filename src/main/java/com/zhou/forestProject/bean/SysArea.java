@@ -14,6 +14,7 @@ public class SysArea {
   private SysType sysType;
 
 
+
   public long getAreaId() {
     return areaId;
   }
