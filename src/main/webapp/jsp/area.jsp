@@ -25,7 +25,7 @@
         <a><cite>静态表格</cite></a>
     </div>
 </div>
-<div class="layui-fluid">-
+<div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
 
@@ -42,36 +42,32 @@
                         </colgroup>
                         <thead>
                         <tr>
-                            <th>人物</th>
-                            <th>民族</th>
-                            <th>出场时间</th>
-                            <th>格言</th>
+                            <th>区域名称</th>
+                            <th>林种</th>
+                            <th>地类</th>
+                            <th>优势树种</th>
+                            <th>负责小班</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>贤心</td>
-                            <td>汉族</td>
-                            <td>1989-10-14</td>
-                            <td>人生似修行</td>
-                        </tr>
-                        <tr>
-                            <td>张爱玲</td>
-                            <td>汉族</td>
-                            <td>1920-09-30</td>
-                            <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                        </tr>
-                        <tr>
-                            <td>Helen Keller</td>
-                            <td>拉丁美裔</td>
-                            <td>1880-06-27</td>
-                            <td> Life is either a daring adventure or nothing.</td>
-                        </tr>
+                        <c:forEach var="c" items="${areaList}" >
+                            <tr>
+                                <td>${c.areaName}</td>
+                                <td>${c.areaTreeType}</td>
+                                <td>${c.typeVal}</td>
+                                <td>${c.areaGoodTree}</td>
+                                <td>${c.className}</td>
+                            </tr>
+                        </c:forEach>
+
+                       
+
                         </tbody>
                     </table>
                 </div>
                 <!--表格结束-->
                 <!--分页开始-->
+                <button class="layui-btn layui-btn-primary"  id="firstId">首页</button>
                 <div class="layui-card-body">
                     <div id="test-laypage-demo0"></div>
                 </div>
@@ -80,7 +76,7 @@
         </div>
     </div>
 
-    <div class="layui-row layui-col-space15">
+    <div class="layui-row layui-col-space15" >
         <!--添加按钮开始-->
         <div class="layui-col-md6 layui-col-xs6" >
             <div class="layui-card">
@@ -88,8 +84,6 @@
                     <div class="layui-btn-container">
 
                         <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px" id="bid1">添加区域</button>
-
-                        <!--<button class="layui-btn">添加小班</button>-->
 
                     </div>
                 </div>
@@ -162,6 +156,9 @@
     $("#bid1").click(function () {
         location.href="jsp/addArea.jsp";
     });
+    $("#firstId").click(function () {
+        alert("5466")
+    })
 </script>
 
 </body>
