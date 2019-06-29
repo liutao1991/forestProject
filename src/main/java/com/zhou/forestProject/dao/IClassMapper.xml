@@ -2,9 +2,68 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--命名空间-->
 <mapper namespace="com.zhou.forestProject.dao.IClassDao">
-    <insert id="addClass" parameterType="sysArea">
+
+    <!--根据id修改小班信息-->
+    <update id="updateClass">
+        update sys_class set class_leader=#{0},class_leader_tel=#{1} where class_id=#{2}
+    </update>
+    <!--根据区域id查找小班信息-->
+    <select id="findClassByAreaId" resultType="sysClass" >
+        select class_id as classId,class_name as className from sys_class where area_id=#{0}
+    </select>
+    <!--根据id查找小班-->
+    <select id="findClassById" resultMap="classMap">
+         select *   from sys_class c left join sys_area a on c.area_id=a.area_id
+         left join sys_type t on a.area_adress_id=t.type_id
+         where c.class_id=#{0}
+    </select>
+
+    <resultMap id="classMap" type="com.zhou.forestProject.dto.ClassDto">
+        <id property="classId" column="class_id"></id>
+        <result property="className" column="class_name" ></result>
+        <result property="classLeader" column="class_leader" ></result>
+        <result property="classLeaderTel" column="class_leader_tel" ></result>
+        <result property="classNum" column="class_num" ></result>
+        <result property="areaId" column="area_id" ></result>
+        <result property="areaName" column="area_name" ></result>
+        <result property="areaTreeType" column="area_tree_type" ></result>
+        <result property="areaGoodTree" column="area_good_tree" ></result>
+        <result property="areaType" column="type_val" ></result>
+        <result property="classStartDate" column="class_start_date" ></result>
+    </resultMap>
+    <!--根据条件查询小班集合-->
+    <select id="findClassBySome" parameterType="map" resultMap="classMap">
+        select *   from sys_class c left join sys_area a on c.area_id=a.area_id
+         left join sys_type t on t.type_id=a.area_adress_id
+        <where>
+            <if test="className!=null and className!=''">
+              and c.class_name like  '%${className}%'
+            </if>
+            <if test="areaName!=null and areaName!=''">
+              and  a.area_name like  '%${areaName}%'
+            </if>
+        </where>
+        <if test="startCount!=null and pageCount!=null">
+            limit #{startCount},#{pageCount}
+        </if>
+    </select>
+    <!--根据条件查询结果的行数-->
+    <select id="countRow" parameterType="map" resultType="int">
+        select count(*) from sys_class c left join sys_area a on c.area_id=a.area_id
+        <where>
+            <if test="className!=null and className!=''">
+               and c.class_name like '%${className}%'
+            </if>
+            <if test="areaName!=null and areaName!=''">
+               and a.area_name like '%${areaName}%'
+            </if>
+        </where>
+    </select>
+    <!--添加小班-->
+    <insert id="addClass" parameterType="sysClass">
         insert into sys_class(area_id, class_name, class_leader, class_leader_tel, class_num,
          class_start_date)
-        values (#{area.areaId},#{className},#{classLeader},#{classLeaderTel},#{classNum},#{classStartDate})
+        values (#{areaId},#{className},#{classLeader},#{classLeaderTel},#{classNum},#{classStartDate})
     </insert>
+
 </mapper>

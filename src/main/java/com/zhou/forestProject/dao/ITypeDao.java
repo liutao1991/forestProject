@@ -21,4 +21,10 @@ public interface ITypeDao {
      * @return id
      */
      public long findIdByVal(String typeVal);
+    /**
+     * 根據id找名字
+     * @param typeId 类型id
+     * @return 类型名字
+     */
+    public String findValById(int typeId);
 }

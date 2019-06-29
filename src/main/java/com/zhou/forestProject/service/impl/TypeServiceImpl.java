@@ -30,4 +30,16 @@ public class TypeServiceImpl implements ITypeService {
         }
         return typeId;
     }
+
+    @Override
+    public String findValById(int typeId) {
+        SqlSession session= GetSession.createSession();
+        String typeVal=session.getMapper(ITypeDao.class).findValById(typeId);
+        session.close();
+        if(null==typeVal){
+            return null;
+        }
+        return typeVal;
+
+    }
 }

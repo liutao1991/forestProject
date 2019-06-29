@@ -59,17 +59,15 @@
                                 <td>${c.className}</td>
                             </tr>
                         </c:forEach>
-
-                       
-
                         </tbody>
                     </table>
                 </div>
                 <!--表格结束-->
                 <!--分页开始-->
-                <button class="layui-btn layui-btn-primary"  id="firstId">首页</button>
+                <div class="layui-card">
                 <div class="layui-card-body">
-                    <div id="test-laypage-demo0"></div>
+                    <div id="test-laypage-demo3"></div>
+                </div>
                 </div>
                 <!--分页结束-->
             </div>
@@ -95,15 +93,19 @@
         <div class="layui-col-md6 layui-col-xs6">
             <div class="layui-card">
                 <div class="layui-card-header">查询区域信息</div>
-                <form class="layui-card-body">
-                    <form class="layui-form" action="" lay-filter="component-form-element">
+
+                    <form class="layui-form" id="formId" action="showArea.lovo" method="post" lay-filter="component-form-element">
+
                         <div class="layui-row layui-col-space10 layui-form-item">
                             <div class="layui-col-lg6">
                                 <%--隐藏表单type名字--%>
-                                <input type="hidden"  name="typeName" id="typeName" value="DL123">
-                                <label class="layui-form-label">区域名称：</label>
+                                <%--<input type="hidden"  name="typeName" id="typeName" value="DL123">--%>
+                                  <%--隐藏当前页--%>
+                                    <input type="hidden" id="cr1" value="${currentPage}" name="currentPage">
+
+                                    <label class="layui-form-label">区域名称：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="text" style="width: 100px" name="areaName" value="${areaName}" lay-verify="required"
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
@@ -111,7 +113,7 @@
                             <div class="layui-col-lg6">
                                 <label class="layui-form-label">林种：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="text" style="width: 100px" name="areaTreeType" value="${areaTreeType}" lay-verify="required"
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
@@ -119,7 +121,7 @@
                             <div class="layui-col-lg6">
                                 <label class="layui-form-label">负责小班：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="text" style="width: 100px" name="className" value="${className}" lay-verify="required"
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
@@ -128,12 +130,12 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit lay-filter="component-form-element">查询
+                                <button class="layui-btn" id="bid" lay-submit lay-filter="component-form-element">查询
                                 </button>
                             </div>
                         </div>
                     </form>
-                </form>
+
             </div>
         </div>
     </div>
@@ -147,28 +149,39 @@
         base: 'layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'laypage'], function () {
+    }).use(['index', 'laypage'], function(){
         var laypage = layui.laypage;
-        //总页数低于页码总数
+        //自定义首页、尾页、上一页、下一页文本
         laypage.render({
-            elem: 'test-laypage-demo0'
-            , count: 50 //数据总数
+            elem: 'test-laypage-demo3'
+            ,count:${allCount}
+            ,limit:${showPage}
+            ,curr:$("#cr1").val()
+            ,first: '首页'
+            ,last: '尾页'
+            ,prev: '<em>←</em>'
+            ,next: '<em>→</em>'
+            ,jump:function (obj,first) {
+                if(!first){
+                    // alert(obj.curr);
+                    $("#cr1").val(obj.curr)
+                    $("#formId").submit();
+                }
+            }
         });
+
+    });
+    // 查詢按鈕
+    $("#bid").click(function () {
+        $("#cr1").val("1");
+        $("#formId").submit();
     });
     function add(){
-        location.href="jsp/addArea.jsp";
+        location.href="addAreaBefore.lovo";
         <%--location.href="${basePath}type.lovo";--%>
 
     }
 
-
-
-
-
-
-    $("#firstId").click(function () {
-        alert("5466")
-    })
 </script>
 
 </body>

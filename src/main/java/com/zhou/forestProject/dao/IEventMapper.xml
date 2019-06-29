@@ -2,11 +2,105 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--命名空间-->
 <mapper namespace="com.zhou.forestProject.dao.IEventDao">
+    <resultMap id="eventMap" type="com.zhou.forestProject.dto.EventDto">
+        <id property="eventId" column="event_id"></id>
+        <result property="eventName" column="event_name"></result>
+        <result property="eventImgPath" column="event_img_path"></result>
+        <result property="eventDate" column="event_date"></result>
+        <result property="eventInfo" column="event_info"></result>
+        <result property="eventLoss" column="event_loss"></result>
+        <result property="eventArea" column="event_area"></result>
+        <result property="eventMethod" column="event_method"></result>
+        <result property="areaName" column="area_name"></result>
+        <result property="className" column="class_name"></result>
+        <result property="enevtStageId" column="event_stage"></result>
+        <result property="eventFindWayId" column="event_find_way"></result>
+        <result property="eventTypeId" column="event_type"></result>
+        <result property="suggest" column="event_method"></result>
+
+
+    </resultMap>
+    <!--根据事件id查看事件状态-->
+    <select id="findEventStageByEventId" resultType="long">
+        select event_stage from sys_event where event_id=#{0}
+    </select>
+    <!--修改事件-只改阶段-->
+    <update id="updateEventStage">
+         update sys_event set event_stage=#{0}  where event_id=#{1}
+    </update>
+    <!--修改事件-->
+    <update id="updateEvent">
+        update sys_event set event_stage=#{0},event_method=#{1} where event_id=#{2}
+    </update>
+    <!--根据事件id查找事件-->
+    <select id="findById" resultMap="eventMap">
+        select * from sys_event e
+        left join sys_area a on e.area_id=a.area_id
+        left join sys_class c on a.area_id=c.area_id where e.event_id=#{0}
+    </select>
+
+    <resultMap id="eventMap2" type="com.zhou.forestProject.dto.EventDto">
+        <id property="eventId" column="event_id"></id>
+        <result property="eventName" column="event_name"></result>
+        <result property="eventDate" column="event_date"></result>
+        <result property="eventMethod" column="event_method"></result>
+        <result property="areaName" column="area_name"></result>
+        <result property="enevtStageId" column="event_stage"></result>
+    </resultMap>
+    <!--根据条件查询事件集合-->
+    <select id="findEventBySome" parameterType="map" resultMap="eventMap2">
+        select *
+        from sys_event e,sys_area a,sys_type t
+        where e.area_id=a.area_id and e.event_stage=t.type_id
+        <if test="eventName!=null and eventName!=''">
+            and e.event_name like '%${eventName}%'
+        </if>
+        <if test="areaName!=null and areaName!=''">
+            and a.area_name like '%${areaName}%'
+        </if>
+        <if test="enevtStage!=null and enevtStage!=''">
+            and e.event_stage = #{enevtStage}
+        </if>
+        <if test="startDate!=null and startDate!=''">
+            and e.event_date &gt;#{startDate}
+        </if>
+        <if test="endDate!=null and endDate!=''">
+            and a.area_name &lt; #{endDate}
+        </if>
+
+        <if test="startCount!=null and pageCount!=null">
+            limit #{startCount},#{pageCount}
+        </if>
+    </select>
+    <!--统计数据条数-->
+    <select id="countRow" parameterType="map" resultType="int">
+        select count(e.event_id)
+        from sys_event e,sys_area a,sys_type t
+        where e.area_id=a.area_id and e.event_stage=t.type_id
+        <if test="eventName!=null and eventName!=''">
+            and e.event_name like '%${eventName}%'
+        </if>
+        <if test="areaName!=null and areaName!=''">
+            and a.area_name like '%${areaName}%'
+        </if>
+        <if test="enevtStage!=null and enevtStage!=''">
+            and e.event_stage = #{enevtStage}
+        </if>
+        <if test="startDate!=null and startDate!=''">
+            and e.event_date &gt;#{startDate}
+        </if>
+        <if test="endDate!=null and endDate!=''">
+            and a.area_name &lt; #{endDate}
+        </if>
+    </select>
+    <!--添加事件-->
     <insert id="addEvent" parameterType="sysArea">
-        insert into sys_event(area_id, event_name, event_img_path, event_date, event_stage,
+
+         insert into sys_event(area_id, event_name, event_img_path, event_date, event_stage,
         event_type, event_info, event_find_way, event_loss, event_area, event_method)
-        values (#{sysArea.areaId},#{eventName},#{eventImgPath},#{eventDate},#{sysTypeEnevtStage.typeId},
-        #{sysTypeEventType.typeId},#{eventInfo},#{sysTypeEventFindWay.typeId},#{eventLoss},#{eventArea},
+        values (#{areaId},#{eventName},#{eventImgPath},#{eventDate},#{eventStage},
+        #{eventType},#{eventInfo},#{eventFindWay},#{eventLoss},#{eventArea},
         #{eventMethod})
     </insert>
+
 </mapper>

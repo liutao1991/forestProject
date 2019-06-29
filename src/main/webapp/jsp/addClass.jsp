@@ -22,19 +22,19 @@
     <div class="layui-card">
         <div class="layui-card-body" style="padding: 15px;">
             <div align="center"><h1>添加小班</h1></br>
-                <form class="layui-form" action="" lay-filter="component-form-group">
+                <form class="layui-form" action="addClassAfter.lovo" method="post" id="formId" lay-filter="component-form-group">
 
                     <div class="layui-row layui-col-space10 layui-form-item">
                         <div class="layui-col-md6 layui-col-xs6">
                             <label class="layui-form-label">名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" class="layui-input">
+                                <input type="text" name="className" autocomplete="off" class="layui-input"  lay-verify="required">
                             </div>
                         </div>
                         <div class="layui-col-md6 layui-col-xs6">
                             <label class="layui-form-label">负责人</label>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" class="layui-input">
+                                <input type="text" name="classLeader" autocomplete="off" class="layui-input"  lay-verify="required">
                             </div>
                         </div>
                     </div>
@@ -43,13 +43,13 @@
                         <div class="layui-col-md6 layui-col-xs6">
                             <label class="layui-form-label">负责人电话</label>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" class="layui-input">
+                                <input type="text" name="classLeaderTel" autocomplete="off" class="layui-input"  lay-verify="required">
                             </div>
                         </div>
                         <div class="layui-col-md6 layui-col-xs6">
                             <label class="layui-form-label">人员数量</label>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" class="layui-input">
+                                <input type="text" name="classNum" autocomplete="off" class="layui-input"  lay-verify="required">
                             </div>
                         </div>
 
@@ -59,19 +59,17 @@
                         <div class="layui-col-md4 layui-col-xs4">
                             <label class="layui-form-label">负责区域</label>
                             <div class="layui-input-block"  >
-                                <select  name="city" lay-verify="required"  >
+                                <select  name="areaId" lay-verify="required"  lay-verify="required" >
                                     <option value=""></option>
-                                    <option value="0">464</option>
-                                    <option value="1">上海</option>
-                                    <option value="2">广州</option>
-                                    <option value="3">深圳</option>
-                                    <option value="4">杭州</option>
+                                    <c:forEach items="${areaList}" var="s">
+                                        <option value="${s.areaId}">${s.areaName}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <button class="layui-btn" lay-submit="" lay-filter="component-form-demo1">添加</button>
+                    <button class="layui-btn" lay-submit=""id="bid" lay-filter="component-form-demo1">添加</button>
 
                 </form>
             </div>
@@ -81,53 +79,16 @@
 
 
 <script>
-    layui.config({
-        base: 'layuiadmin/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'form', 'laydate'], function () {
-        var $ = layui.$
-            , admin = layui.admin
-            , element = layui.element
-            , layer = layui.layer
-            , laydate = layui.laydate
-            , form = layui.form;
-
-        form.render(null, 'component-form-group');
-
-        laydate.render({
-            elem: '#LAY-component-form-group-date'
-        });
-
-        /* 自定义验证规则 */
-        form.verify({
-            title: function (value) {
-                if (value.length < 5) {
-                    return '标题至少得5个字符啊';
-                }
-            }
-            , pass: [/(.+){6,12}$/, '密码必须6到12位']
-            , content: function (value) {
-                layedit.sync(editIndex);
-            }
-        });
-
-        /* 监听指定开关 */
-        form.on('switch(component-form-switchTest)', function (data) {
-            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
-        /* 监听提交 */
-        form.on('submit(component-form-demo1)', function (data) {
-            parent.layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
+    //下拉框显示
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
     });
+    // 添加按钮
+    $("#bid").click(function () {
+        $("#formId").submit();
+    });
+
 </script>
 </body>
 </html>

@@ -13,27 +13,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AddAreaServlet extends HttpServlet {
+public class AddAreaAfterServlet extends HttpServlet {
     ITypeService typeService=new TypeServiceImpl();
     IAreaService areaService=new AreaServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //得到添加的数据
          String areaName=  request.getParameter("areaName");
          String areaTreeType=  request.getParameter("areaTreeType");
          String areaGoodTree=  request.getParameter("areaGoodTree");
-         String typeName=  request.getParameter("typeVal");
-         long typeId=typeService.findIdByVal(typeName);
+         String typeId=  request.getParameter("typeVal");
+         //创建区域对象
         SysArea sysArea=new SysArea();
-        SysType sysType=new SysType();
-        sysType.setTypeId(typeId);
-        sysArea.setSysType(sysType);
+       //添加对象数据
+        sysArea.setAreaAdressId(Long.parseLong(typeId));
         sysArea.setAreaGoodTree(areaGoodTree);
         sysArea.setAreaTreeType(areaTreeType);
         sysArea.setAreaName(areaName);
         boolean bl=areaService.addArea(sysArea);
         if(bl){
-            request.getRequestDispatcher("jsp/area.jsp").forward(request,response);
+            //重定向到展示页面
+            response.sendRedirect("showArea.lovo");
+            return;
         }else {
-            request.getRequestDispatcher("jsp/addArea.jsp").forward(request,response);
+            //重定向到当前页面
+            response.sendRedirect("addAreaBefore.lovo");
+            return;
         }
 
 

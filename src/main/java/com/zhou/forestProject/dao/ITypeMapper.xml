@@ -9,4 +9,7 @@
     <select id="findIdByVal" resultType="long">
         select type_id from sys_type where type_val=#{0}
     </select>
+    <select id="findValById" resultType="string">
+        select type_val from sys_type where type_id=#{0}
+    </select>
 </mapper>

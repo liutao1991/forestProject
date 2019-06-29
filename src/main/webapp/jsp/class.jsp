@@ -31,6 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             <div class="layui-card">
                 <div align="center" style="font-size: 40px" class="layui-card-header">小班管理</div>
+                <div id="did" style="color: red;size: 10px"></div>
                 <!--表格开始-->
                 <div class="layui-card-body">
                     <table class="layui-table">
@@ -42,39 +43,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </colgroup>
                         <thead>
                         <tr>
-                            <th>人物</th>
-                            <th>民族</th>
-                            <th>出场时间</th>
-                            <th>格言</th>
+                            <th>小班名称</th>
+                            <th>负责人</th>
+                            <th>负责人电话</th>
+                            <th>负责区域</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>贤心</td>
-                            <td>汉族</td>
-                            <td>1989-10-14</td>
-                            <td>人生似修行</td>
-                        </tr>
-                        <tr>
-                            <td>张爱玲</td>
-                            <td>汉族</td>
-                            <td>1920-09-30</td>
-                            <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                        </tr>
-                        <tr>
-                            <td>Helen Keller</td>
-                            <td>拉丁美裔</td>
-                            <td>1880-06-27</td>
-                            <td> Life is either a daring adventure or nothing.</td>
-                        </tr>
+                        <c:forEach items="${classList}" var="c">
+                            <tr onclick="addId(${c.classId})" >
+                                <td>${c.className}</td>
+                                <td>${c.classLeader}</td>
+                                <td>${c.classLeaderTel}</td>
+                                <td>${c.areaName}</td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
                 <!--表格结束-->
                 <!--分页开始-->
 
-                <div class="layui-card-body">
-                    <div id="test-laypage-demo0"></div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div id="test-laypage-demo3"></div>
+                    </div>
                 </div>
                 <!--分页结束-->
             </div>
@@ -87,12 +80,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="layui-card">
                 <div class="layui-card-body">
                     <div class="layui-btn-container">
-                        <button class="layui-btn layui-btn-primary" style="margin-right: 150px;margin-bottom: 70px">
+                        <button class="layui-btn layui-btn-primary" style="margin-right: 150px;margin-bottom: 70px" id="bid2">
                             查看小班信息
                         </button>
+
                         <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px" id="bid1">添加小班</button>
                         <p></p>
-                        <button class="layui-btn layui-btn-primary">修改小班信息</button>
+                        <button class="layui-btn layui-btn-primary" id="bid3">修改小班信息</button>
                         <!--<button class="layui-btn">添加小班</button>-->
 
                     </div>
@@ -105,13 +99,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="layui-col-md6 layui-col-xs6">
             <div class="layui-card">
                 <div class="layui-card-header">查询小班信息</div>
-                <form class="layui-card-body">
-                    <form class="layui-form" action="" lay-filter="component-form-element">
+
+                    <form class="layui-form" id="formId" action="showClass.lovo" method="post" lay-filter="component-form-element">
                         <div class="layui-row layui-col-space10 layui-form-item">
                             <div class="layui-col-lg6">
+                                <%--隐藏当前页--%>
+                                <input type="hidden" id="cr1" value="${currentPage}" name="currentPage">
+
                                 <label class="layui-form-label">小班姓名：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="text" style="width: 100px" name="className" value="${className}" lay-verify="required"
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
@@ -119,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="layui-col-lg6">
                                 <label class="layui-form-label">负责区域：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="text" style="width: 100px" name="areaName" value="${areaName}" lay-verify=""
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
@@ -128,12 +125,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit lay-filter="component-form-element">查询
+                                <button class="layui-btn" id="bid" lay-submit lay-filter="component-form-element">查询
                                 </button>
                             </div>
                         </div>
                     </form>
-                </form>
+
             </div>
         </div>
     </div>
@@ -141,22 +138,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 </div>
-
+<%--隐藏小班id--%>
+<form action="chooseClass.lovo" method="post" id="formId2">
+    <input type="hidden" name="classId" id="hidId">
+    <input type="hidden" name="tag" id="tagId">
+</form>
 <script>
     layui.config({
         base: 'layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'laypage'], function () {
+    }).use(['index', 'laypage'], function(){
         var laypage = layui.laypage;
-        //总页数低于页码总数
+        //自定义首页、尾页、上一页、下一页文本
         laypage.render({
-            elem: 'test-laypage-demo0'
-            , count: 50 //数据总数
+            elem: 'test-laypage-demo3'
+            ,count:${allCount}
+            ,limit:${showPage}
+            ,curr:$("#cr1").val()
+            ,first: '首页'
+            ,last: '尾页'
+            ,prev: '<em>←</em>'
+            ,next: '<em>→</em>'
+            ,jump:function (obj,first) {
+                if(!first){
+                    // alert(obj.curr);
+                    $("#cr1").val(obj.curr)
+                    $("#formId").submit();
+                }
+            }
         });
     });
-    $("#bid1").click(function () {
-        location.href="jsp/addClass.jsp";
+    //选中行
+    function addId(n){
+   // alert(n)
+        $("#hidId").val(n);
+
+    }
+    // 添加小班
+        $("#bid1").click(function () {
+        location.href="addClassBefore.lovo";
+    });
+    // 查詢按鈕
+    $("#bid").click(function () {
+        $("#cr1").val("1");
+        $("#formId").submit();
+    });
+    // 查看小班信息
+    $("#bid2").click(function () {
+       var classid= $("#hidId").val();
+        $("#tagId").val("1");
+        if(classid!=null){
+            $("#formId2").submit();
+        }else{
+            $("#did").html("请选中一行");
+        }
+
+    });
+    // 修改小班信息
+    $("#bid3").click(function () {
+        var classid= $("#hidId").val();
+        $("#tagId").val("2");
+        // alert( classid);
+        if(classid!=null){
+            $("#formId2").submit();
+        }else{
+            $("#did").html("请选中一行");
+        }
     });
 </script>
 

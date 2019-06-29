@@ -21,19 +21,16 @@
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-card-body" style="padding: 15px;">
-            <div align="center"><h1>区域一览</h1></br>
-                <%--<form action="${basePath}type.lovo" method="post" id="fid">--%>
-                    <%--&lt;%&ndash;隐藏表单type名字&ndash;%&gt;--%>
-                    <%--<input type="hidden" name="typeName" id="typeName" value="DL">--%>
-                <%--</form>--%>
-                <form class="layui-form" action="${basePath}addArea.lovo" method="post" lay-filter="component-form-group" id="fromId">
+            <div align="center"><h1>添加区域</h1></br>
+
+                <form class="layui-form" action="addAreaAfter.lovo" method="post" lay-filter="component-form-group" id="fromId">
 
                     <div class="layui-row layui-col-space10 layui-form-item">
                         <div class="layui-col-md3 layui-col-xs3"></div>
                         <div class="layui-col-md6 layui-col-xs6">
                             <label class="layui-form-label">名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" class="layui-input" name="areaName">
+                                <input type="text" autocomplete="off" class="layui-input" name="areaName"  lay-verify="required">
                             </div>
                         </div>
                     </div>
@@ -42,7 +39,7 @@
                         <div class="layui-col-md6 layui-col-xs6">
                             <label class="layui-form-label">林种</label>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" class="layui-input" name="areaTreeType">
+                                <input type="text" autocomplete="off" class="layui-input" name="areaTreeType"  lay-verify="required">
                             </div>
                         </div>
                     </div>
@@ -51,7 +48,7 @@
                         <div class="layui-col-md6 layui-col-xs6">
                             <label class="layui-form-label">优势树种</label>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" class="layui-input" name="areaGoodTree">
+                                <input type="text" autocomplete="off" class="layui-input" name="areaGoodTree"  lay-verify="required">
                             </div>
                         </div>
                     </div>
@@ -61,15 +58,12 @@
                             <label class="layui-form-label">地类</label>
 
                             <div class="layui-input-block">
-                                <select  id="s" lay-verify="required" name="typeVal" class="layui-input">
-                                    <%--<c:forEach items="${typeList}" var="c">--%>
-                                    <%--<option value="${c.typeKey}">${c.typeVal}</option>--%>
-                                    <%--</c:forEach>--%>
-                                     <option value=""></option>
-                                    <option value="1">林地</option>
-                                    <option value="2">疏林地</option>
-                                    <option value="3">灌木林</option>
-                                    <option value="4">苗圃地</option>
+                                <select  id="s" lay-verify="required" name="typeVal" class="layui-input"  lay-verify="required">
+                                    <option value=""></option>
+                                    <c:forEach items="${typeList}" var="c">
+                                    <option value="${c.typeId}">${c.typeVal}</option>
+                                    </c:forEach>
+
                                 </select>
                             </div>
                         </div>

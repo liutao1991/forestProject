@@ -2,26 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--命名空间-->
 <mapper namespace="com.zhou.forestProject.dao.IAreaDao">
-    <resultMap id="areaMap" type="sysArea">
-        <id property="areaId" column="area_id"></id>
-        <result property="areaName" column="area_name"></result>
-        <result property="areaTreeType" column="area_tree_type"></result>
-        <result property="areaGoodTree" column="area_good_tree"></result>
-        <association property="sysType" column="area_adress_id" javaType="sysType">
-            <id property="typeId" column="type_id"></id>
-            <result property="typeName" column="type_name"></result>
-            <result property="typeKey" column="type_key"></result>
-            <result property="typeVal" column="type_val"></result>
-        </association>
-        <association property="sysClass" javaType="sysClass">
-            <id property="classId" column="class_id"></id>
-            <result property="className" column="class_name"></result>
-        </association>
-    </resultMap>
+
+    <!--查找没有小班管理的区域-->
+    <select id="findWithoutClass" resultType="sysArea">
+        select area_id areaId,area_name areaName from sys_area where area_id not in
+          (select a.area_id from sys_area a,sys_class c where a.area_id=c.area_id)
+    </select>
+    <!--添加区域-->
     <insert id="addArea" parameterType="sysArea">
         insert into sys_area(area_name, area_tree_type, area_good_tree, area_adress_id)
-        values (#{areaName},#{areaTreeType},#{areaGoodTree},#{sysType.typeId})
+        values (#{areaName},#{areaTreeType},#{areaGoodTree},#{areaAdressId})
     </insert>
+    <!--根据条件查找区域-->
     <select id="findAreaBySome" parameterType="map" resultType="com.zhou.forestProject.dto.AreaDto">
       select a.area_id areaId,a.area_name areaName,a.area_tree_type  areaTreeType,
         a.area_good_tree areaGoodTree ,t.type_val typeVal,c.class_name className
@@ -29,14 +21,33 @@
       left join sys_type t on a.area_adress_id=t.type_id
       <where>
           <if test="areaName!=null and areaName!=''">
-              and area_name like concat("%",#{areaName},"%")
+              and a.area_name like '%${areaName}%'
           </if>
           <if test="areaTreeType!=null and areaTreeType!=''">
-              and area_tree_type={#areaTreeType}
+              and a.area_tree_type like '%${areaTreeType}%'
           </if>
-          <if test="areaTreeType!=null and areaTreeType!=''">
-              and area_tree_type={#areaTreeType}
+          <if test="className!=null and className!=''">
+              and c.class_name like '%${className}%'
           </if>
       </where>
+      <if test="startCount!=null and pageCount!=null">
+          limit #{startCount},#{pageCount}
+      </if>
+    </select>
+    <!--根据条件统计区域个数-->
+    <select id="countRow" resultType="int" parameterType="map">
+        select count(a.area_id)
+        from sys_area a left join sys_class c on a.area_id=c.area_id
+        <where>
+            <if test="areaName!=null and areaName!=''">
+                and a.area_name like '%${areaName}%'
+            </if>
+            <if test="areaTreeType!=null and areaTreeType!=''">
+                and a.area_tree_type like '%${areaTreeType}%'
+            </if>
+            <if test="className!=null and className!=''">
+                and c.class_name like '%${className}%'
+            </if>
+        </where>
     </select>
 </mapper>

@@ -34,4 +34,23 @@ public class AreaServiceImpl implements IAreaService
         }
        return list;
     }
+
+    @Override
+    public int countRow(Map<String, Object> map) {
+        SqlSession session=GetSession.createSession();
+        int n=session.getMapper(IAreaDao.class).countRow(map);
+        session.close();
+        return n;
+    }
+
+    @Override
+    public List<SysArea> findWithoutClass() {
+        SqlSession session=GetSession.createSession();
+        List<SysArea> list=session.getMapper(IAreaDao.class).findWithoutClass();
+        if(null==list){
+            return null;
+        }else {
+            return  list;
+        }
+    }
 }

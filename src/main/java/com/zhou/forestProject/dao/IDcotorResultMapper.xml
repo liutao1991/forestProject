@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间-->
+<mapper namespace="com.zhou.forestProject.dao.IDcotorResultDao">
+    <resultMap id="doctorResultMap" type="com.zhou.forestProject.dto.DoctorResultDto">
+
+    </resultMap>
+    <!--根据会商结果id查找会商结果dto-->
+    <select id="findByResultId" resultType="com.zhou.forestProject.dto.DoctorResultDto">
+        select dr.result_id resultId,dr.doctor_event_id doctorEventId,de.event_id eventId,
+        dr.doctor_event_date doctorEventDate,dr.doctor_event_result doctorEventResult
+
+        from doctor_event de left join doctor_result  dr on de.doctor_event_id=dr.doctor_event_id
+        where dr.result_id=#{0}
+    </select>
+    <!--根据事件id查找会商结果dto集合-->
+    <select id="findByEventId" resultType="com.zhou.forestProject.dto.DoctorResultDto">
+        select dr.result_id resultId,dr.doctor_event_id doctorEventId,de.event_id eventId,
+        dr.doctor_event_date doctorEventDate,dr.doctor_event_result doctorEventResult
+
+        from doctor_event de left join doctor_result  dr on de.doctor_event_id=dr.doctor_event_id
+        where de.event_id=#{0}
+    </select>
+</mapper>

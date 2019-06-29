@@ -8,7 +8,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>静态表格</title>
+    <title>事件表格</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -42,38 +42,34 @@
                         </colgroup>
                         <thead>
                         <tr>
-                            <th>人物</th>
-                            <th>民族</th>
-                            <th>出场时间</th>
-                            <th>格言</th>
+                            <th>事件名称</th>
+                            <th>日期</th>
+                            <th>发生位置</th>
+                            <th>防治方案</th>
+                            <th>灾情状态</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>贤心</td>
-                            <td>汉族</td>
-                            <td>1989-10-14</td>
-                            <td>人生似修行</td>
-                        </tr>
-                        <tr>
-                            <td>张爱玲</td>
-                            <td>汉族</td>
-                            <td>1920-09-30</td>
-                            <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                        </tr>
-                        <tr>
-                            <td>Helen Keller</td>
-                            <td>拉丁美裔</td>
-                            <td>1880-06-27</td>
-                            <td> Life is either a daring adventure or nothing.</td>
-                        </tr>
+
+                            <c:forEach items="${eventList}" var="s">
+                            <tr onclick="addId(${s.eventId})">
+                            <td>${s.eventName}</td>
+                            <td>${s.eventDate}</td>
+                            <td>${s.areaName}</td>
+                            <td>${s.eventMethod}</td>
+                            <td>${s.enevtStage}</td>
+                            </tr>
+                            </c:forEach>
+
                         </tbody>
                     </table>
                 </div>
                 <!--表格结束-->
                 <!--分页开始-->
-                <div class="layui-card-body">
-                    <div id="test-laypage-demo0"></div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div id="test-laypage-demo3"></div>
+                    </div>
                 </div>
                 <!--分页结束-->
             </div>
@@ -87,12 +83,12 @@
                 <div class="layui-card-body">
                     <div class="layui-btn-container">
                         <button id="bid1"  class="layui-btn layui-btn-primary" style="margin-right: 150px;margin-bottom: 70px">
-                            添加事件
+                        添加事件
                         </button>
                         <button class="layui-btn layui-btn-primary" style="margin-bottom: 70px" id="bid2">查看事件信息</button>
                         <p></p>
-                        <button class="layui-btn layui-btn-primary" style="margin-right: 120px">申请专家会审</button>
-                        <button class="layui-btn layui-btn-primary">修改事件信息</button>
+                        <button class="layui-btn layui-btn-primary" style="margin-right: 120px" id="bid3">申请专家会审</button>
+                        <button class="layui-btn layui-btn-primary" id="bid4">修改事件信息</button>
                         <!--<button class="layui-btn">添加小班</button>-->
 
                     </div>
@@ -104,46 +100,59 @@
 
         <div class="layui-col-md6 layui-col-xs6">
             <div class="layui-card">
-                <div class="layui-card-header">查询小班信息</div>
-                <form class="layui-card-body">
-                    <form class="layui-form" action="" lay-filter="component-form-element">
+                <div class="layui-card-header">事件查询</div>
+
+                    <form class="layui-form" action="showEvent.lovo"method="post" id="formId" lay-filter="component-form-element">
                         <div class="layui-row layui-col-space10 layui-form-item">
-                            <div class="layui-col-lg6">
+                            <div class="layui-col-xs6">
+                                <%--隐藏当前页--%>
+                                <input type="hidden" id="cr1" value="${currentPage}" name="currentPage">
+                                    <%--隐藏选中类型--%>
+                                <input type="hidden" id="cr2" value="${enevtStage}" >
+                                   
                                 <label class="layui-form-label">事件名称：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="text" style="width: 100px" value="${eventName}" name="eventName" lay-verify=""
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-col-lg6">
-                                <label class="layui-form-label">灾情状态：</label>
-                                <div class="layui-input-block">
-                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
-                                           placeholder=""
-                                           autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-col-lg6">
+                            <div class=" layui-col-xs6">
                                 <label class="layui-form-label">发生位置：</label>
                                 <div class="layui-input-block">
-                                    <input type="text" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="text" style="width: 100px" value="${areaName}" name="areaName" lay-verify=""
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-col-lg6">
+                            <div class="layui-col-md6 layui-col-sm6">
+                                <%--<div class="layui-form-item">--%>
+                                    <label class="layui-form-label">灾情状态：</label>
+                                    <div class="layui-input-block">
+                                        <select name="enevtStage" id="eventStatus" lay-verify="">
+                                            <option value="" selected="selected"></option>
+                                            <c:forEach items="${eventStatusList}" var="s">
+                                                <option value="${s.typeId}">${s.typeVal}</option>
+                                            </c:forEach>
+
+                                        </select>
+                                    </div>
+                                <%--</div>--%>
+                            </div>
+                        </div>
+                        <div class="layui-row layui-col-space10 layui-form-item">
+                            <div class="layui-col-md6 layui-col-sm6">
                                 <label class="layui-form-label">起始日期：</label>
                                 <div class="layui-input-block">
-                                    <input type="date" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="date" style="width: 100px" value="${startDate}" name="startDate" lay-verify=""
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-col-lg6">
+                            <div class="layui-col-lg6 layui-col-sm6">
                                 <label class="layui-form-label">结束日期：</label>
                                 <div class="layui-input-block">
-                                    <input type="date" style="width: 100px" name="fullname" lay-verify="required"
+                                    <input type="date" style="width: 100px" value="${endDate}" name="endDate" lay-verify=""
                                            placeholder=""
                                            autocomplete="off" class="layui-input">
                                 </div>
@@ -152,12 +161,12 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit lay-filter="component-form-element">查询
+                                <button class="layui-btn" lay-submit lay-filter="component-form-element" id="bid5">查询
                                 </button>
                             </div>
                         </div>
                     </form>
-                </form>
+
             </div>
         </div>
     </div>
@@ -165,23 +174,100 @@
 </div>
 </div>
 </div>
+<%--放入选中的行--%>
+<form action="chooseEvent.lovo" method="post" id="formId2">
+    <input type="hidden"  name="eventId"  id="eventId">
+    <input type="hidden"  name="tag"  id="tagId">
+</form>
+<%--提交到申请专家会审--%>
+<form action="eventToDoctor.lovo" method="post" id="formId3">
+    <input type="hidden"  name="eventId"  id="eventId2">
 
+</form>
 <script>
     layui.config({
         base: 'layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'laypage'], function () {
+    }).use(['index', 'laypage'], function(){
         var laypage = layui.laypage;
-        //总页数低于页码总数
+        //自定义首页、尾页、上一页、下一页文本
         laypage.render({
-            elem: 'test-laypage-demo0'
-            , count: 50 //数据总数
+            elem: 'test-laypage-demo3'
+            ,count:${allCount}
+            ,limit:${showPage}
+            ,curr:$("#cr1").val()
+            ,first: '首页'
+            ,last: '尾页'
+            ,prev: '<em>←</em>'
+            ,next: '<em>→</em>'
+            ,jump:function (obj,first) {
+                if(!first){
+                    // alert(obj.curr);
+                    $("#cr1").val(obj.curr)
+                    $("#formId").submit();
+                }
+            }
         });
     });
-    $("#bid1").click(function () {
-        location.href="jsp/addEvent.jsp";
+    //下拉框显示
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
     });
+    //查询
+    $("#bid5").click(function () {
+        $("#cr1").val("1");
+        $("#formId").submit();
+    });
+    // 申请专家会审
+    $("#bid3").click(function () {
+       $("#formId3").submit();
+    });
+    // 修改事件信息
+    $("#bid4").click(function () {
+        $("#tagId").val("2");
+        var evId=$("#eventId").val();
+        if(evId!=null && evId!=''){
+            $("#formId2").submit();
+
+        }
+    });
+    // 添加事件
+    $("#bid1").click(function () {
+
+        location.href="addEventBefore.lovo";
+    });
+    //查看选中事件信息
+    $("#bid2").click(function () {
+        $("#tagId").val("1");
+        var evId=$("#eventId").val();
+        if(evId!=null && evId!=''){
+            $("#formId2").submit();
+
+        }
+
+        // location.href="jsp/showEvent.jsp";
+    });
+    // 初始化加载选中类型
+    $(document).ready(function () {
+       var a=$("#cr2").val() 
+        $("#eventStatus option").each(function () {
+           var c= $(this).val();
+           if(a==c){
+               $(this).attr("selected","selected");
+           }
+        })
+    });
+    // 选中行
+    function addId(r) {
+        //把选中行id放入隐藏表单
+        // alert(r)
+        $("#eventId").val(r);
+        $("#eventId2").val(r);
+
+
+    }
 </script>
 
 </body>

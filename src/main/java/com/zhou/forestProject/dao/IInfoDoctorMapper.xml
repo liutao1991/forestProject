@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间-->
+<mapper namespace="com.zhou.forestProject.dao.IInfoDoctorDao">
+    <select id="findByResultId" resultType="com.zhou.forestProject.dto.InfoDoctorDto">
+        select i.result_id resultId,i.doctor_id doctorId,d.doctor_name doctorName from info_doctor i
+        left join sys_doctor d on i.doctor_id=d.doctor_id
+        where i.result_id=#{0}
+    </select>
+</mapper>

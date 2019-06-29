@@ -10,7 +10,7 @@
   <display-name>Archetype Created Web Application</display-name>
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>/com/zhou/forestProject/dao/IAreaMapper.xml,/com/zhou/forestProject/dao/IClassMapper.xml,/com/zhou/forestProject/dao/IEventMapper.xml,/com/zhou/forestProject/dao/ITypeMapper.xml</param-value>
+        <param-value>/com/zhou/forestProject/dao/IAreaMapper.xml,/com/zhou/forestProject/dao/IClassMapper.xml,/com/zhou/forestProject/dao/IEventMapper.xml,/com/zhou/forestProject/dao/ITypeMapper.xml,/com/zhou/forestProject/dao/IDoctorEventMapper.xml,/com/zhou/forestProject/dao/IDcotorResultMapper.xml,/com/zhou/forestProject/dao/IInfoDoctorMapper.xml</param-value>
     </context-param>
     <!--过滤器-->
     <filter>
@@ -33,28 +33,134 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
-        <servlet-name>areaServlet</servlet-name>
-        <servlet-class>com.zhou.forestProject.servlet.AreaServlet</servlet-class>
+        <servlet-name>showAreaServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.ShowAreaServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>addAreaAfterServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.AddAreaAfterServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>typeServlet</servlet-name>
-        <servlet-class>com.zhou.forestProject.servlet.TypeServlet</servlet-class>
+        <servlet-name>showClassServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.ShowClassServlet</servlet-class>
+    </servlet>
+    <!--添加小班之前查询信息-->
+    <servlet>
+        <servlet-name>addClassBeforeServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.AddClassBeforeServlet</servlet-class>
+    </servlet>
+    <!--执行添加小班之后操作-->
+    <servlet>
+        <servlet-name>addClassAfterServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.AddClassAfterServlet</servlet-class>
+    </servlet>
+    <!--查看选中小班信息-->
+    <servlet>
+        <servlet-name>chooseClassServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.ChooseClassServlet</servlet-class>
+    </servlet>
+    <!--修改小班信息-->
+    <servlet>
+        <servlet-name>updateClassServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.UpdateClassServlet</servlet-class>
+    </servlet>
+    <!--查询事件记录-->
+    <servlet>
+        <servlet-name>showEventServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.ShowEventServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>addAreaServlet</servlet-name>
-        <servlet-class>com.zhou.forestProject.servlet.AddAreaServlet</servlet-class>
+        <servlet-name>chooseEventServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.ChooseEventServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addEventBeforeServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.AddEventBeforeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addEventAfterServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.AddEventAfterServlet</servlet-class>
+    </servlet>
+    <!--添加事件之根据区域查找小班信息-->
+    <servlet>
+        <servlet-name>addEventFindClassServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.AddEventFindClassServlet</servlet-class>
+    </servlet>
+    <!--修改事件-->
+    <servlet>
+        <servlet-name>updateEventServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.UpdateEventServlet</servlet-class>
+    </servlet>
+    <!--事件之申请专家会审-->
+    <servlet>
+        <servlet-name>eventToDoctorServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.EventToDoctorServlet</servlet-class>
+    </servlet>
+    <!--进入添加区域之前-->
+    <servlet>
+        <servlet-name>addAreaBeforeServlet</servlet-name>
+        <servlet-class>com.zhou.forestProject.servlet.AddAreaBeforeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>addAreaServlet</servlet-name>
-        <url-pattern>/addArea.lovo</url-pattern>
+        <servlet-name>addAreaBeforeServlet</servlet-name>
+        <url-pattern>/addAreaBefore.lovo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>typeServlet</servlet-name>
-        <url-pattern>/type.lovo</url-pattern>
+        <servlet-name>eventToDoctorServlet</servlet-name>
+        <url-pattern>/eventToDoctor.lovo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>areaServlet</servlet-name>
-        <url-pattern>/area.lovo</url-pattern>
+        <servlet-name>updateEventServlet</servlet-name>
+        <url-pattern>/updateEvent.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addEventFindClassServlet</servlet-name>
+        <url-pattern>/addEventFindClass.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addEventAfterServlet</servlet-name>
+        <url-pattern>/addEventAfter.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addEventBeforeServlet</servlet-name>
+        <url-pattern>/addEventBefore.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>chooseEventServlet</servlet-name>
+        <url-pattern>/chooseEvent.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showEventServlet</servlet-name>
+        <url-pattern>/showEvent.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateClassServlet</servlet-name>
+        <url-pattern>/updateClass.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>chooseClassServlet</servlet-name>
+        <url-pattern>/chooseClass.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addClassAfterServlet</servlet-name>
+        <url-pattern>/addClassAfter.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addClassBeforeServlet</servlet-name>
+        <url-pattern>/addClassBefore.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showClassServlet</servlet-name>
+        <url-pattern>/showClass.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addAreaAfterServlet</servlet-name>
+        <url-pattern>/addAreaAfter.lovo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showAreaServlet</servlet-name>
+        <url-pattern>/showArea.lovo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>

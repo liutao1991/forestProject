@@ -83,7 +83,8 @@
   </div>
 
 
-  <script>
+  <script type="text/html" id="showImg">
+    <div><img src="{{d.imgUrl}}"></div>
   layui.config({
     base: 'layuiadmin/' //静态资源所在路径
   }).extend({
@@ -131,6 +132,9 @@
       return false;
     });
   });
+  {field: 'shareUrl', title: '图片', width: '11%', templet:'#showImg'}
+
+
   </script>
 </body>
 </html>

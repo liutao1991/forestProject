@@ -22,4 +22,15 @@ public interface IAreaService {
      * @return
      */
     public List<AreaDto> findAreaBySome(Map<String,Object> map);
+    /**
+     * 根据条件查询行数
+     * @param map
+     * @return
+     */
+    public int countRow(Map<String,Object> map);
+    /**
+     * 查找没有小班管理的区域
+     * @return 区域集合
+     */
+    public List<SysArea> findWithoutClass();
 }
